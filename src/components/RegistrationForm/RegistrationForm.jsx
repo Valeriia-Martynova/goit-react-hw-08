@@ -23,47 +23,53 @@ const RegistrationForm = () => {
   };
 
   return (
-    <Formik
-      initialValues={{ name: "", email: "", password: "" }}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form className={c.form}>
-        <label className={c.label}>
-          Name
-          <Field
-            className={c.input}
-            type="text"
-            name="name"
-            placeholder="Name"
-          />
-          <ErrorMessage className={c.error} name="name" component="span" />
-        </label>
-        <label className={c.label}>
-          Email
-          <Field
-            className={c.input}
-            type="email"
-            name="email"
-            placeholder="Email"
-          />
-          <ErrorMessage className={c.error} name="email" component="span" />
-        </label>
-        <label className={c.label}>
-          Password
-          <Field
-            className={c.input}
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-          <ErrorMessage className={c.error} name="password" component="span" />
-        </label>
-        <button className={c.btn} type="submit">
-          Register
-        </button>
-      </Form>
-    </Formik>
+    <div className="formWrapper">
+      <Formik
+        initialValues={{ name: "", email: "", password: "" }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className="form">
+          <label className={c.label}>
+            Name
+            <Field
+              className={c.input}
+              type="text"
+              name="name"
+              placeholder="Name"
+            />
+            <ErrorMessage className={c.error} name="name" component="span" />
+          </label>
+          <label className={c.label}>
+            Email
+            <Field
+              className={c.input}
+              type="email"
+              name="email"
+              placeholder="Email"
+            />
+            <ErrorMessage className={c.error} name="email" component="span" />
+          </label>
+          <label className={c.label}>
+            Password
+            <Field
+              className={c.input}
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+            <ErrorMessage
+              className={c.error}
+              name="password"
+              component="span"
+            />
+          </label>
+          <button className={c.btn} type="submit">
+            Register
+          </button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 

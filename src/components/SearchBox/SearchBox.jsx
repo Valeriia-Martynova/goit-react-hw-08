@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, selectNameFilter } from "../../redux/filters/slice";
+import {
+  changeFilter,
+  selectNameFilter,
+  selectNumberFilter,
+} from "../../redux/filters/slice";
 import c from "./SearchBox.module.css";
 import { FaSistrix } from "react-icons/fa";
 
 const SearchBox = () => {
   const dispatch = useDispatch();
-  const search = useSelector(selectNameFilter);
+  const search = useSelector((selectNameFilter, selectNumberFilter));
 
   const onChange = (e) => dispatch(changeFilter(e.target.value));
 
@@ -19,7 +23,7 @@ const SearchBox = () => {
           id="filter"
           value={search}
           onChange={onChange}
-          placeholder="Name..."
+          placeholder="Name or number..."
         />
       </div>
     </div>
