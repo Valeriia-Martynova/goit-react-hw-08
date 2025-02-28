@@ -6,7 +6,7 @@ const HomePage = () => {
     <div className={c.homePage}>
       <h1>
         <FaAddressBook />
-        Phonebook
+        Phonebook 💛💙
       </h1>
     </div>
   );
