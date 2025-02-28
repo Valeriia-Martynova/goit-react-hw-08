@@ -6,6 +6,7 @@ import ContactList from "../../components/ContactList/ContactList";
 import { fetchContacts } from "../../redux/contacts/operations";
 import { selectIsLoading } from "../../redux/contacts/selectors";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { RiContactsLine } from "react-icons/ri";
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,10 @@ const ContactsPage = () => {
 
   return (
     <>
-      <h2>Contacts</h2>
+      <h2>
+        <RiContactsLine />
+        Contacts
+      </h2>
       <ContactForm />
       {isLoading && <p>Loading...</p>}
       <SearchBox />
