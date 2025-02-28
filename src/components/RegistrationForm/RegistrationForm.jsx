@@ -2,7 +2,9 @@ import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
+import toast from "react-hot-toast";
+import { FaPen } from "react-icons/fa";
+import { PiPasswordLight } from "react-icons/pi";
 import c from "./RegistrationForm.module.css";
 
 const validationSchema = Yup.object().shape({
@@ -18,53 +20,51 @@ const RegistrationForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(register(values));
+    dispatch(register(values))
+      .unwrap()
+      .then((response) => toast.success(`Welcome, ${response.name}`))
+      .catch(() => toast.error("Email is already in use"));
+
     resetForm();
   };
 
   return (
-    <div className="formWrapper">
+    <div>
       <Formik
         initialValues={{ name: "", email: "", password: "" }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="form">
-          <label className={c.label}>
-            Name
-            <Field
-              className={c.input}
-              type="text"
-              name="name"
-              placeholder="Name"
-            />
+        <Form className={c.form}>
+          <div className={c.inputContainer}>
+            <label htmlFor="name">Name</label>
+            <div className={c.inputWrapper}>
+              <Field type="text" name="name" placeholder="Name" />
+              <FaPen className={c.icon} />
+            </div>
             <ErrorMessage className={c.error} name="name" component="span" />
-          </label>
-          <label className={c.label}>
-            Email
-            <Field
-              className={c.input}
-              type="email"
-              name="email"
-              placeholder="Email"
-            />
+          </div>
+          <div className={c.inputContainer}>
+            <label htmlFor="email">Email</label>
+            <div className={c.inputWrapper}>
+              <Field type="email" name="email" placeholder="Email" />
+              <FaPen className={c.icon} />
+            </div>
             <ErrorMessage className={c.error} name="email" component="span" />
-          </label>
-          <label className={c.label}>
-            Password
-            <Field
-              className={c.input}
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
+          </div>
+          <div className={c.inputContainer}>
+            <label htmlFor="password">Password</label>
+            <div className={c.inputWrapper}>
+              <Field type="password" name="password" placeholder="Password" />
+              <PiPasswordLight className={c.icon} />
+            </div>
             <ErrorMessage
               className={c.error}
               name="password"
               component="span"
             />
-          </label>
-          <button className={c.btn} type="submit">
+          </div>
+          <button className={c.btnForm} type="submit">
             Register
           </button>
         </Form>

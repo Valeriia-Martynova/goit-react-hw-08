@@ -1,9 +1,11 @@
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
+import { MdAppRegistration } from "react-icons/md";
+import c from "./RegistrationPage.module.css";
 
 const RegistrationPage = () => {
   return (
     <div>
-      <h2>Registration Page</h2>
+      <MdAppRegistration className={c.iconRegistration} />
       <RegistrationForm />
     </div>
   );

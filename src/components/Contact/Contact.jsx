@@ -13,14 +13,16 @@ const Contact = ({ data: { id, name, number }, edit, handleDelete }) => {
         <FaPhoneAlt className={c.icon} />
         {number}
       </li>
-      <button className={c.btnDelete} onClick={edit}>
-        <FaPen className={c.iconDelete} />
-        Edit
-      </button>
-      <button className={c.btnDelete} onClick={() => handleDelete(id)}>
-        <MdDelete className={c.iconDelete} />
-        Delete
-      </button>
+      <li className={c.item}>
+        <button className={c.btnDelete} onClick={edit}>
+          <FaPen className={c.iconDelete} />
+          Edit
+        </button>
+        <button className={c.btnDelete} onClick={() => handleDelete(id)}>
+          <MdDelete className={c.iconDelete} />
+          Delete
+        </button>
+      </li>
     </ul>
   );
 };

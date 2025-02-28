@@ -1,7 +1,13 @@
+import { FaAddressBook } from "react-icons/fa";
+import c from "./HomePage.module.css";
+
 const HomePage = () => {
   return (
-    <div>
-      <h1>Phonebook</h1>
+    <div className={c.homePage}>
+      <h1>
+        <FaAddressBook />
+        Phonebook
+      </h1>
     </div>
   );
 };

@@ -2,10 +2,11 @@ import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/auth/operations";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
 import c from "./LoginForm.module.css";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
+import { FaPen } from "react-icons/fa";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -20,7 +21,7 @@ const LoginForm = () => {
     dispatch(logIn(values))
       .unwrap()
       .then((response) => {
-        toast.success(`Welcome, ${response.name}`);
+        toast.success(`Welcome, ${response.user.name}`);
         navigate("/contacts", { replace: true });
       })
       .catch(() => toast.error("Wrong email or password"));
@@ -29,33 +30,35 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="formWrapper">
+    <div>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="form">
-          <label className={c.label}>
-            Email
-            <Field
-              className={c.input}
-              type="email"
-              name="email"
-              placeholder="Email"
-            />
+        <Form className={c.form}>
+          <div className={c.inputContainer}>
+            <label htmlFor="email">Email</label>
+            <div className={c.inputWrapper}>
+              <Field type="email" name="email" placeholder="Email" />
+              <FaPen className={c.icon} />
+            </div>
             <ErrorMessage className={c.error} name="email" component="span" />
-          </label>
-          <label className={c.label}>
-            Password
-            <Field
-              className={c.input}
-              type="password"
+          </div>
+          <div className={c.inputContainer}>
+            <label htmlFor="password">Password</label>
+            <div className={c.inputWrapper}>
+              <Field type="password" name="password" placeholder="Password" />
+              <FaPen className={c.icon} />
+            </div>
+            <ErrorMessage
+              className={c.error}
               name="password"
-              placeholder="Password"
+              component="span"
             />
-          </label>
-          <button className={c.btn} type="submit">
+          </div>
+
+          <button className={c.btnForm} type="submit">
             Login
           </button>
         </Form>
