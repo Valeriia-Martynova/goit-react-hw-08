@@ -5,8 +5,8 @@ import * as Yup from "yup";
 import c from "./LoginForm.module.css";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
 import { FaPen } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -16,6 +16,14 @@ const validationSchema = Yup.object().shape({
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [savedEmail, setSavedEmail] = useState(null);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("savedEmail");
+    if (storedEmail) {
+      setSavedEmail(storedEmail);
+    }
+  }, []);
 
   const handleSubmit = (values, { resetForm }) => {
     dispatch(logIn(values))
@@ -23,6 +31,8 @@ const LoginForm = () => {
       .then((response) => {
         toast.success(`Welcome, ${response.user.name}`);
         navigate("/contacts", { replace: true });
+
+        localStorage.setItem("savedEmail", values.email);
       })
       .catch(() => toast.error("Wrong email or password"));
 
@@ -32,15 +42,21 @@ const LoginForm = () => {
   return (
     <div>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: savedEmail || "", password: "" }}
         validationSchema={validationSchema}
+        enableReinitialize={true}
         onSubmit={handleSubmit}
       >
         <Form className={c.form}>
           <div className={c.inputContainer}>
             <label htmlFor="email">Email</label>
             <div className={c.inputWrapper}>
-              <Field type="email" name="email" placeholder="Email" />
+              <Field
+                type="email"
+                name="email"
+                placeholder="Email"
+                autoComplete="email"
+              />
               <FaPen className={c.icon} />
             </div>
             <ErrorMessage className={c.error} name="email" component="span" />
@@ -48,7 +64,12 @@ const LoginForm = () => {
           <div className={c.inputContainer}>
             <label htmlFor="password">Password</label>
             <div className={c.inputWrapper}>
-              <Field type="password" name="password" placeholder="Password" />
+              <Field
+                type="password"
+                name="password"
+                placeholder="Password"
+                autoComplete="current-password"
+              />
               <FaPen className={c.icon} />
             </div>
             <ErrorMessage
